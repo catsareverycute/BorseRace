@@ -1,7 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 class DrawPanel extends JPanel implements MouseListener {
@@ -10,21 +14,57 @@ class DrawPanel extends JPanel implements MouseListener {
     private Rectangle button;
     private Rectangle button1;
     private ArrayList<Rectangle> test = new ArrayList<Rectangle>();
+    private Wall wall;
+    private BufferedImage image;
+    private Rectangle yes;
+    private boolean bounce = false;
 
     public DrawPanel() {
         button = new Rectangle(167, 300, 160, 26);
         button1 = new Rectangle(360, 10, 160, 26);
         this.addMouseListener(this);
+        wall = new Wall();
+        wall.nextRound();
+        yes = new Rectangle(600, 600, 10, 10);
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        int x = 140;
-        int y = 10;
-        Wall w = new Wall();
-        w.nextRound();
-        test = w.createMap();
+        test = wall.createMap();
+        g.setColor(Color.BLACK);
         for (Rectangle rec : test) {
+            g.drawRect(rec.x,rec.y,rec.width,rec.height);
+            g.fillRect(rec.x,rec.y,rec.width,rec.height);
+        }
+        g.drawRect(yes.x,yes.y,yes.width,yes.height);
+        g.setColor(Color.RED);
+        g.fillRect(yes.x,yes.y,yes.width,yes.height);
+
+        for (Rectangle rec : test) {
+            if(yes.intersects(rec)){
+                bounce = !bounce;
+            }
+        }
+        if (!bounce) {
+            if(yes.x==100){
+                yes.x = yes.x + 2;
+            }
+            yes.x++;
+            yes.y++;
+        }
+        else{
+            if(yes.x==100){
+                yes.x = yes.x + 2;
+            }
+            else {
+                yes.x = yes.x -2;
+            }
+            yes.y--;
+        }
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
 
