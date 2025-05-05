@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-
+// TEST
 class DrawPanel extends JPanel implements MouseListener {
 
     // Rectangle object represents ....... a rectangle.
