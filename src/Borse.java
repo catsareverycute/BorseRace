@@ -1,5 +1,24 @@
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+
 public class Borse extends Sprite{
-    public Borse(int h, int w, int x, int y){
-        super(h,w,x,y);
+    private int number;
+    private Rectangle borse;
+    BufferedImage image;
+    private String imageFile = "images/borse_"+number+".png";
+    private ArrayList<Rectangle> stables;
+    private ArrayList<Rectangle> race;
+
+    public Borse(int x, int y, int h, int w, int number) {
+        super(x,y,h,w);
+        borse = new Rectangle(x,y,h,w);
+        this.number = number;
+        image = readImage(imageFile);
     }
+    public String getImageFile() {
+        return imageFile;
+    }
+    public Rectangle getBorse(){ return borse;}
+
 }

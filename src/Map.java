@@ -1,10 +1,10 @@
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Wall {
+public class Map {
     private static int map;
     private Rectangle test;
-    public Wall(){
+    public Map(){
     }
 
     public ArrayList<Rectangle> createMap(){

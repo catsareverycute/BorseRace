@@ -1,20 +1,17 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-// TEST
+
 class DrawPanel extends JPanel implements MouseListener {
 
     // Rectangle object represents ....... a rectangle.
     private Rectangle button;
     private Rectangle button1;
     private ArrayList<Rectangle> test = new ArrayList<Rectangle>();
-    private Wall wall;
+    private Map map;
     private BufferedImage image;
     private Rectangle yes;
     private boolean bounce = false;
@@ -23,14 +20,45 @@ class DrawPanel extends JPanel implements MouseListener {
         button = new Rectangle(167, 300, 160, 26);
         button1 = new Rectangle(360, 10, 160, 26);
         this.addMouseListener(this);
-        wall = new Wall();
-        wall.nextRound();
+        map = new Map();
+        map.nextRound();
         yes = new Rectangle(600, 600, 10, 10);
     }
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        test = wall.createMap();
+        int x = 300;
+        int y = 300;
+        Borse borse = new Borse(x,y,10,10,0);
+        image = borse.getImage(borse.readImage(borse.getImageFile()));
+        g.drawImage(image,x,y,this);
+        for (Rectangle rec : test) {
+            if(borse.getBorse().intersects(rec)){
+                bounce = !bounce;
+            }
+        }
+        for (int i = 0; i<100;i++){
+            x++;
+            g.drawImage(image, x, y, this);
+        }
+
+        if (!bounce) {
+            if(x==100){
+                x = x + 2;
+            }
+            x++;
+            y++;
+        }
+        else{
+            if(x==100){
+                x = x + 2;
+            }
+            else {
+                x = x -2;
+            }
+            y--;
+        }
+        test = map.createMap();
         g.setColor(Color.BLACK);
         for (Rectangle rec : test) {
             g.drawRect(rec.x,rec.y,rec.width,rec.height);
