@@ -38,4 +38,6 @@ public class Sprite {
     public BufferedImage getImage(BufferedImage image) {
         return image;
     }
+    public int getX(){return x;}
+    public int getY(){return y;}
 }

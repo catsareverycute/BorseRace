@@ -21,7 +21,7 @@ class DrawPanel extends JPanel implements MouseListener {
         button1 = new Rectangle(360, 10, 160, 26);
         this.addMouseListener(this);
         map = new Map();
-        map.nextRound();
+        // map.nextRound();
         yes = new Rectangle(600, 600, 10, 10);
     }
 
@@ -37,9 +37,15 @@ class DrawPanel extends JPanel implements MouseListener {
                 bounce = !bounce;
             }
         }
+
         for (int i = 0; i<100;i++){
             x++;
-            g.drawImage(image, x, y, this);
+            try {
+                Thread.sleep(1);
+            }
+            catch (Exception e) {
+            }
+            repaint();
         }
 
         if (!bounce) {
@@ -59,7 +65,10 @@ class DrawPanel extends JPanel implements MouseListener {
             y--;
         }
         test = map.createMap();
+        Rectangle ttttt = map.outScreen();
         g.setColor(Color.BLACK);
+        g.drawRect(ttttt.x,ttttt.y,ttttt.width,ttttt.height);
+        g.fillRect(ttttt.x,ttttt.y,ttttt.width,ttttt.height);
         for (Rectangle rec : test) {
             g.drawRect(rec.x,rec.y,rec.width,rec.height);
             g.fillRect(rec.x,rec.y,rec.width,rec.height);
@@ -118,11 +127,17 @@ class DrawPanel extends JPanel implements MouseListener {
         // drawing the bottom button
         // with my favorite font (not comic sans)
         g.setFont(new Font("Courier New", Font.BOLD, 20));
-        g.drawString("PLAY AGAIN", 180, 320);
+        g.drawString("PLAY AGAIN", 900, 540);
         g.drawRect((int)button.getX(), (int)button.getY(), (int)button.getWidth(), (int)button.getHeight());
         g.drawString("REPLACE CARDS", 363, 30);
         g.drawRect((int)button1.getX(), (int)button1.getY(), (int)button1.getWidth(), (int)button1.getHeight());
         g.drawString("Cards left: ", 0, 525);
+    }
+
+    public void moveImage(int x, int y){
+        x++;
+        y++;
+        repaint();
     }
 
     public void mousePressed(MouseEvent e) {
