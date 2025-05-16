@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.OutputStream;
+import java.nio.Buffer;
 import java.util.ArrayList;
 
 class DrawPanel extends JPanel implements MouseListener {
@@ -15,10 +17,11 @@ class DrawPanel extends JPanel implements MouseListener {
     private BufferedImage image;
     private Rectangle yes;
     private boolean bounce = false;
+    private boolean outScreen = true;
+    private boolean pause = false;
 
     public DrawPanel() {
-        button = new Rectangle(167, 300, 160, 26);
-        button1 = new Rectangle(360, 10, 160, 26);
+        button = new Rectangle(880, 700, 160, 40);
         this.addMouseListener(this);
         map = new Map();
         // map.nextRound();
@@ -29,7 +32,7 @@ class DrawPanel extends JPanel implements MouseListener {
         super.paintComponent(g);
         int x = 300;
         int y = 300;
-        Borse borse = new Borse(x,y,10,10,0);
+        /* Borse borse = new Borse(x,y,10,10,0);
         image = borse.getImage(borse.readImage(borse.getImageFile()));
         g.drawImage(image,x,y,this);
         for (Rectangle rec : test) {
@@ -102,7 +105,7 @@ class DrawPanel extends JPanel implements MouseListener {
             Thread.sleep(5);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        } */
 
 
         /* for (int i = 0; i < hand.size(); i++) {
@@ -123,16 +126,31 @@ class DrawPanel extends JPanel implements MouseListener {
             x = x + c.getImage().getWidth() + 10;
         }
              */
-
-        // drawing the bottom button
-        // with my favorite font (not comic sans)
-        g.setFont(new Font("Courier New", Font.BOLD, 20));
-        g.drawString("PLAY AGAIN", 900, 540);
-        g.drawRect((int)button.getX(), (int)button.getY(), (int)button.getWidth(), (int)button.getHeight());
-        g.drawString("REPLACE CARDS", 363, 30);
-        g.drawRect((int)button1.getX(), (int)button1.getY(), (int)button1.getWidth(), (int)button1.getHeight());
-        g.drawString("Cards left: ", 0, 525);
+        if(outScreen){
+            outScreen(g);
+        }
     }
+    protected void outScreen(Graphics g) {
+        Rectangle full = map.outScreen();
+        g.setColor(Color.BLACK);
+        g.drawRect(full.x,full.y,full.width,full.height);
+        g.fillRect(full.x,full.y,full.width,full.height);
+        Sprite amazing = new Sprite(650,200,10,10);
+        image = amazing.getImage(amazing.readImage(amazing.getImageFile("images/woodrow-rearing-square.jpg")));
+        g.drawImage(image,755,250,this);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Brush Script MT", Font.BOLD, 100));
+        if (!pause) {
+            g.drawString("BORSE RACE", 650, 200);
+        }
+        else {
+            g.drawString("PAUSED", 755, 200);
+        }
+        g.setFont(new Font("Courier New", Font.BOLD, 50));
+        g.drawString("PLAY", 900, 735);
+        g.drawRect((int)button.getX(), (int)button.getY(), (int)button.getWidth(), (int)button.getHeight());
+    }
+
 
     public void moveImage(int x, int y){
         x++;
