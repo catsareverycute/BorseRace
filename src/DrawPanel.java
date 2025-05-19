@@ -8,8 +8,6 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 
 class DrawPanel extends JPanel implements MouseListener {
-
-    // Rectangle object represents ....... a rectangle.
     private Rectangle button;
     private Rectangle button1;
     private ArrayList<Rectangle> test = new ArrayList<Rectangle>();
@@ -19,12 +17,12 @@ class DrawPanel extends JPanel implements MouseListener {
     private boolean bounce = false;
     private boolean outScreen = true;
     private boolean pause = false;
+    private boolean clear = false;
 
     public DrawPanel() {
         button = new Rectangle(880, 700, 160, 40);
         this.addMouseListener(this);
         map = new Map();
-        // map.nextRound();
         yes = new Rectangle(600, 600, 10, 10);
     }
 
@@ -126,29 +124,62 @@ class DrawPanel extends JPanel implements MouseListener {
             x = x + c.getImage().getWidth() + 10;
         }
              */
-        if(outScreen){
-            outScreen(g);
+        outScreen(g);
+        if (clear){
+            g.clearRect(0,0,getWidth(),getHeight());
+            clear = false;
+        }
+        test = map.createMap();
+        if (!outScreen) {
+            for (Rectangle rectangle : test) {
+                g.setColor(Color.BLACK);
+                g.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+                g.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+            }
+            g.drawRect(yes.x, yes.y, yes.width, yes.height);
+            g.setColor(Color.RED);
+            g.fillRect(yes.x, yes.y, yes.width, yes.height);
+            try{Thread.sleep(1);}catch(Exception e){}
+            if (!bounce){
+                yes.x = yes.x+2; // randomize
+                yes.y++;
+            }
+            else{
+                yes.x--;
+                yes.y--;
+            }
+            for (Rectangle rectangle: test) {
+                if(yes.intersects(rectangle)){ // check x or y for direction
+                    bounce = !bounce;
+                }
+            }
+
         }
     }
     protected void outScreen(Graphics g) {
         Rectangle full = map.outScreen();
-        g.setColor(Color.BLACK);
-        g.drawRect(full.x,full.y,full.width,full.height);
-        g.fillRect(full.x,full.y,full.width,full.height);
-        Sprite amazing = new Sprite(650,200,10,10);
-        image = amazing.getImage(amazing.readImage(amazing.getImageFile("images/woodrow-rearing-square.jpg")));
-        g.drawImage(image,755,250,this);
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("Brush Script MT", Font.BOLD, 100));
-        if (!pause) {
-            g.drawString("BORSE RACE", 650, 200);
+        if (outScreen) {
+            button.x = 880; //bandage fix
+            g.setColor(Color.BLACK);
+            g.drawRect((int) full.getX(), (int) full.getY(), (int) full.getWidth(), (int) full.getHeight());
+            g.fillRect((int) full.getX(), (int) full.getY(), (int) full.getWidth(), (int) full.getHeight());
+            Sprite amazing = new Sprite(650, 200, 10, 10);
+            image = amazing.getImage(amazing.readImage(amazing.getImageFile("images/woodrow-rearing-square.jpg")));
+            g.drawImage(image, 755, 250, this);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Brush Script MT", Font.BOLD, 100));
+            if (!pause) {
+                g.drawString("BORSE RACE", 650, 200);
+            } else {
+                g.drawString("PAUSED", 755, 200);
+            }
+            g.setFont(new Font("Courier New", Font.BOLD, 50));
+            g.drawString("PLAY", 900, 735);
+            g.drawRect((int) button.getX(), (int) button.getY(), (int) button.getWidth(), (int) button.getHeight());
         }
-        else {
-            g.drawString("PAUSED", 755, 200);
+        else{
+            button.x = 100000;
         }
-        g.setFont(new Font("Courier New", Font.BOLD, 50));
-        g.drawString("PLAY", 900, 735);
-        g.drawRect((int)button.getX(), (int)button.getY(), (int)button.getWidth(), (int)button.getHeight());
     }
 
 
@@ -158,29 +189,20 @@ class DrawPanel extends JPanel implements MouseListener {
         repaint();
     }
 
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent e) { // placeholder code
 
         Point clicked = e.getPoint();
 
-        // left click
         if (e.getButton() == 1) {
-            // if "clicked" is inside the button rectangle
-            // aka --> did you click the button?
             if (button.contains(clicked)) {
+                outScreen = false;
+                clear = true;
+                if (!pause){
+                    map.nextRound();
+                }
             }
         }
     }
-
-            // go through each card
-            // check if any of them were clicked on
-            // if it was clicked, flip the card
-            /* for (int i = 0; i < hand.size(); i++) {
-                Rectangle box = hand.get(i).getCardBox();
-                if (box.contains(clicked)) {
-                    hand.get(i).flipCard();
-                }
-            } */
-            // right click
             /* if (e.getButton() == 1 || e.getButton() == 3) {
                 for (int i = 0; i < hand.size(); i++) {
                     Rectangle box = hand.get(i).getCardBox();

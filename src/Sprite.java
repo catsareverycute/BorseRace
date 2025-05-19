@@ -20,8 +20,6 @@ public class Sprite {
     public BufferedImage readImage(String imageFile) {
         try {
             BufferedImage image;
-            // if show is true, show the front
-            // otherwise show the back of the card
             image = ImageIO.read(new File(imageFile));
             return image;
         }
