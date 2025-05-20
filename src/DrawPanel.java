@@ -18,6 +18,8 @@ class DrawPanel extends JPanel implements MouseListener {
     private boolean outScreen = true;
     private boolean pause = false;
     private boolean clear = false;
+    private int direction = (int)(Math.random()*2);
+    private String move = "NORTH";
 
     public DrawPanel() {
         button = new Rectangle(880, 700, 160, 40);
@@ -140,7 +142,7 @@ class DrawPanel extends JPanel implements MouseListener {
             g.setColor(Color.RED);
             g.fillRect(yes.x, yes.y, yes.width, yes.height);
             try{Thread.sleep(1);}catch(Exception e){}
-            if (!bounce){
+            /*if (!bounce){
                 yes.x = yes.x+2; // randomize
                 yes.y++;
             }
@@ -153,8 +155,39 @@ class DrawPanel extends JPanel implements MouseListener {
                     bounce = !bounce;
                 }
             }
-
-        }
+            int speed = (int)(Math.random() * 6);
+            yes.x = yes.x+speed;
+            yes.y++; */
+            // NORTH GO SOUTH INTERSECT
+            if (move.equals("NORTH")) {
+                moveRectangleNorth(yes);
+            }
+            if (move.equals("SOUTH")) {
+                moveRectangleSouth(yes);
+            }
+            if (move.equals("EAST")) {
+                moveRectangleEast(yes);
+            }
+            if (move.equals("WEST")) {
+                moveRectangleWest(yes);
+            }
+            }
+            for (Rectangle rectangle: test) {
+                if(yes.intersects(rectangle)){ // check x or y for direction
+                    if (yes.x <= 100){
+                        move = "EAST";
+                    }
+                    else if (yes.x >= 1820){
+                        move = "WEST";
+                    }
+                    else if (yes.y >= 900){
+                        move = "NORTH";
+                    }
+                    else if (yes.y <= 100){
+                        move = "SOUTH";
+                    }
+                }
+            }
     }
     protected void outScreen(Graphics g) {
         Rectangle full = map.outScreen();
@@ -187,6 +220,40 @@ class DrawPanel extends JPanel implements MouseListener {
         x++;
         y++;
         repaint();
+    }
+
+    public void moveRectangleNorth(Rectangle rec){
+        int speed = (int)(Math.random() * 5) + 1;
+        if (direction == 0) {
+            yes.x = yes.x + speed;
+        }
+        else{
+            yes.x = yes.x - speed;
+        }
+        yes.y = yes.y - speed;
+    }
+
+    public void moveRectangleSouth(Rectangle rec){
+        int speed = (int)(Math.random() * 5) + 1;
+        if (direction == 0) {
+            yes.x = yes.x + speed;
+        }
+        else {
+            yes.x = yes.x - speed;
+        }
+        yes.y = yes.y + speed;
+    }
+
+    public void moveRectangleEast(Rectangle rec){
+        int speed = (int)(Math.random() * 5) + 1;
+        yes.x = yes.x+speed;
+        yes.y++;
+    }
+
+    public void moveRectangleWest(Rectangle rec){
+        int speed = (int)(Math.random() * 5) + 1;
+        yes.x = yes.x-speed;
+        yes.y++;
     }
 
     public void mousePressed(MouseEvent e) { // placeholder code
