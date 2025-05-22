@@ -17,8 +17,16 @@ public class Map {
             walls.add(new Rectangle(100,100, 100,100));
             walls.add(new Rectangle(500,400, 100,100));
             walls.add(new Rectangle(300,200, 100,100));
-            walls.add(new Rectangle(10,10, 100,100));
-            walls.add(new Rectangle(800,90, 100,100));
+            walls.add(new Rectangle(1300,350, 100,100));
+            walls.add(new Rectangle(800,150, 100,100));
+            walls.add(new Rectangle(1200,600, 100,100));
+            walls.add(new Rectangle(1000,300,100,100));
+            walls.add(new Rectangle(1500,800, 100,100));
+            walls.add(new Rectangle(200,700, 100,100));
+            walls.add(new Rectangle(400,550,100,100));
+            walls.add(new Rectangle(900,700,100,100));
+            walls.add(new Rectangle(1600,100,100,100));
+            walls.add(new Rectangle(1700,450,100,100));
         }
         return walls;
     }

@@ -27,7 +27,7 @@ public class Sprite {
             return image;
         }
         catch (IOException e) {
-            System.out.println(e);
+            System.out.println("WORK");
             return null;
         }
     }

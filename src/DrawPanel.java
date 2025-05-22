@@ -11,9 +11,8 @@ class DrawPanel extends JPanel implements MouseListener {
     private Rectangle button;
     private Rectangle button1;
     private ArrayList<Rectangle> test = new ArrayList<Rectangle>();
-    private ArrayList<Borse> rrrrr = new ArrayList<>();
-    private static ArrayList<Rectangle> stables;
-    private static ArrayList<Rectangle> race;
+    private ArrayList<Borse> stables = new ArrayList<>();
+    private static ArrayList<Rectangle> race = new ArrayList<>();
     private Map map;
     private BufferedImage image;
     private Rectangle yes;
@@ -21,7 +20,7 @@ class DrawPanel extends JPanel implements MouseListener {
     private boolean outScreen = true;
     private boolean pause = false;
     private boolean clear = false;
-    private int direction = (int)(Math.random()*2);
+    private boolean s = false;
     Borse borse = new Borse(600,600,10,10,0);
 
     public DrawPanel() {
@@ -29,6 +28,10 @@ class DrawPanel extends JPanel implements MouseListener {
         this.addMouseListener(this);
         map = new Map();
         yes = new Rectangle(600, 600, 10, 10);
+        stables.add(borse);
+        for (Borse borse : stables){
+            race.add(borse.getBorse());
+        }
     }
 
     protected void paintComponent(Graphics g) {
@@ -141,15 +144,15 @@ class DrawPanel extends JPanel implements MouseListener {
                 g.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
                 g.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
             }
-            rrrrr.add(borse);
-
-            g.drawRect(borse.getX(),borse.getY(),borse.getWidth(),borse.getHeight());
-            g.setColor(Color.RED);
-            g.fillRect(borse.getX(),borse.getY(),borse.getWidth(),borse.getHeight());
+            for (Rectangle borse : race) {
+                g.drawRect((int)borse.getX(), (int)borse.getY(), (int)borse.getWidth(), (int)borse.getHeight());
+                g.setColor(Color.RED);
+                g.fillRect((int)borse.getX(), (int)borse.getY(), (int)borse.getWidth(), (int)borse.getHeight());
+            }
             /* g.drawRect(yes.x, yes.y, yes.width, yes.height);
             g.setColor(Color.RED);
             g.fillRect(yes.x, yes.y, yes.width, yes.height); */
-            try{Thread.sleep(1);}catch(Exception e){}
+            try{Thread.sleep(50);}catch(Exception e){}
             /*if (!bounce){
                 yes.x = yes.x+2; // randomize
                 yes.y++;
@@ -166,53 +169,29 @@ class DrawPanel extends JPanel implements MouseListener {
             int speed = (int)(Math.random() * 6);
             yes.x = yes.x+speed;
             yes.y++; */
-            for (Borse ss : rrrrr){
+            for (Borse borse : stables){
             for (Rectangle rec : race){
             for (Rectangle rectangle: test) {
                 // NORTH GO SOUTH INTERSECT
-                if (ss.getMove().equals("NORTH")) {
-                    ss.moveRectangleNorth();
+                if (rec.intersects(rectangle)) {
+                    borse.detectCollision();
                 }
-                if (ss.getMove().equals("SOUTH")) {
-                    ss.moveRectangleSouth();
+                if (borse.getMove().equals("NORTH")) {
+                    borse.moveRectangleNorth();
                 }
-                if (ss.getMove().equals("EAST")) {
-                    ss.moveRectangleEast();
+                if (borse.getMove().equals("SOUTH")) {
+                    borse.moveRectangleSouth();
                 }
-                if (ss.getMove().equals("WEST")) {
-                    ss.moveRectangleWest();
+                if (borse.getMove().equals("EAST")) {
+                    borse.moveRectangleEast();
                 }
-            }
-            }
-            }
-                if(yes.intersects(rectangle)){ // check x or y for direction
-                    if (yes.x <= 100){
-                        move = "EAST";
-                    }
-                    else if (yes.x >= 1820){
-                        move = "WEST";
-                    }
-                    else if (yes.y >= 900){
-                        move = "NORTH";
-                    }
-                    else if (yes.y <= 100){
-                        move = "SOUTH";
-                    }
-                    else if (move.equals("NORTH")){
-                        move = "SOUTH";
-                    }
-                    else if (move.equals("SOUTH")){
-                        move = "NORTH";
-                    }
-                    else if (move.equals("EAST")){
-                        move = "WEST";
-                    }
-                    else if (move.equals("WEST")){
-                        move = "EAST";
-                    }
-                    direction = (int)(Math.random()*2);
+                if (borse.getMove().equals("WEST")) {
+                    borse.moveRectangleWest();
                 }
             }
+            }
+            }
+        }
     }
     protected void outScreen(Graphics g) {
         Rectangle full = map.outScreen();
