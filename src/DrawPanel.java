@@ -174,8 +174,12 @@ class DrawPanel extends JPanel implements MouseListener {
             for (Rectangle rectangle: test) {
                 // NORTH GO SOUTH INTERSECT
                 if (rec.intersects(rectangle)) {
-                    borse.detectCollision();
+                    borse.detectCollision(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
                 }
+                /*else{
+                    borse.setX(borse.getBorse().x);
+                    borse.setY(borse.getBorse().y);
+                }*/
                 if (borse.getMove().equals("NORTH")) {
                     borse.moveRectangleNorth();
                 }

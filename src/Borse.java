@@ -9,7 +9,7 @@ public class Borse extends Sprite{
     private String imageFile = "images/borse_"+number+".png";
     private String move = "NORTH";
     private int direction = (int)(Math.random()*2);
-    private int speed = (int)(Math.random() * 5) + 1;
+    private int speed = (int)(Math.random()*1) + 1;
 
     public Borse(int x, int y, int w, int h, int number) {
         super(x,y,w,h);
@@ -23,20 +23,40 @@ public class Borse extends Sprite{
     public Rectangle getBorse(){ return borse;}
     public String getMove(){return move;}
 // X Y TP THERE WHEN INTERSECT AND TRY AGAIN
-    public void detectCollision(){
+    public void detectCollision(int x, int y, int width, int height){
                 if (borse.x <= 100){
                     move = "EAST";
+                    borse.x = 101;
                 }
                 else if (borse.x >= 1820){
                     move = "WEST";
+                    borse.x = 1819;
                 }
                 else if (borse.y >= 900){
                     move = "NORTH";
+                    borse.y = 899;
                 }
                 else if (borse.y <= 100){
                     move = "SOUTH";
+                    borse.y = 101;
                 }
-                else if (move.equals("NORTH")){
+                else if (borse.y >= y && borse.x >= x && borse.x <= x + width){
+                    move = "NORTH";
+                    borse.y = y-1;
+                }
+                else if (borse.y >= y+height && borse.x >= x && borse.x <= x + width){
+                    move = "SOUTH";
+                    borse.y = y+1;
+                }
+                else if (borse.y <= y+height && borse.y >= y && borse.x <= x){
+                    move = "WEST";
+                    borse.x = x-1;
+                }
+                else if (borse.y <= y+height && borse.y >= y && borse.x <= x + width){
+                    move = "EAST";
+                    borse.x = x+1;
+                }
+                /*else if (move.equals("NORTH")){
                     move = "SOUTH";
                 }
                 else if (move.equals("SOUTH")){
@@ -47,9 +67,11 @@ public class Borse extends Sprite{
                 }
                 else if (move.equals("WEST")){
                     move = "EAST";
-                }
+                }*/
                 direction = (int)(Math.random()*2);
-                speed = (int)(Math.random() * 5) + 1;
+                speed = (int)(Math.random()*1) + 1;
+                //borse.x = getX();
+                // borse.y = getY();
             }
     public void moveRectangleNorth(){
         if (direction == 0) {

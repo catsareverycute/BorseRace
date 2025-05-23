@@ -27,6 +27,12 @@ public class Map {
             walls.add(new Rectangle(900,700,100,100));
             walls.add(new Rectangle(1600,100,100,100));
             walls.add(new Rectangle(1700,450,100,100));
+            walls.add(new Rectangle(700,650,100,100));
+            walls.add(new Rectangle(250,450,100,100));
+            walls.add(new Rectangle(1200,200,100,100));
+            walls.add(new Rectangle(650,500,100,100));
+            walls.add(new Rectangle(850,400,100,100));
+            walls.add(new Rectangle(1450,500,100,100));
         }
         return walls;
     }
