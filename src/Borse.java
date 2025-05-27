@@ -10,11 +10,13 @@ public class Borse extends Sprite{
     private String move = "NORTH";
     private int direction = (int)(Math.random()*2);
     private int speed = (int)(Math.random()*1) + 1;
+    private Color color;
 
-    public Borse(int x, int y, int w, int h, int number) {
+    public Borse(int x, int y, int w, int h, int number, Color color) {
         super(x,y,w,h);
         borse = getSprite();
         this.number = number;
+        this.color = color;
         image = readImage(imageFile);
     }
     public String getImageFile() {
@@ -22,6 +24,8 @@ public class Borse extends Sprite{
     }
     public Rectangle getBorse(){ return borse;}
     public String getMove(){return move;}
+    public Color getColor(){return color;}
+    public int getNumber(){return number;}
 // X Y TP THERE WHEN INTERSECT AND TRY AGAIN
     public void detectCollision(int x, int y, int width, int height){
                 if (borse.x <= 100){
