@@ -32,9 +32,9 @@ public class Borse extends Sprite{
                     move = "EAST";
                     borse.x = 101;
                 }
-                else if (borse.x >= 1820){
+                else if (borse.x >= 1800){
                     move = "WEST";
-                    borse.x = 1819;
+                    borse.x = 1799;
                 }
                 else if (borse.y >= 900){
                     move = "NORTH";

@@ -18,6 +18,7 @@ class DrawPanel extends JPanel implements MouseListener {
     private Rectangle yes;
     private boolean bounce = false;
     private boolean outScreen = true;
+    private boolean play = false;
     private boolean pause = false;
     private boolean clear = false;
     private boolean s = false;
@@ -143,7 +144,7 @@ class DrawPanel extends JPanel implements MouseListener {
             clear = false;
         }
         test = map.createMap();
-        if (!outScreen) {
+        if (play) {
             g.setColor(Color.BLACK);
             g.drawRect(carrot.x,carrot.y,carrot.width,carrot.height);
             g.setColor(Color.ORANGE);
@@ -168,7 +169,7 @@ class DrawPanel extends JPanel implements MouseListener {
             /* g.drawRect(yes.x, yes.y, yes.width, yes.height);
             g.setColor(Color.RED);
             g.fillRect(yes.x, yes.y, yes.width, yes.height); */
-            try{Thread.sleep(50);}catch(Exception e){}
+            try{Thread.sleep(1);}catch(Exception e){}
             /*if (!bounce){
                 yes.x = yes.x+2; // randomize
                 yes.y++;
@@ -191,8 +192,14 @@ class DrawPanel extends JPanel implements MouseListener {
                         stables.get(i).detectCollision(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
                     }
                     if (race.get(i).intersects(carrot)){
-                        clear = true;//fix this
-                        g.drawString("borse" + stables.get(i).getNumber() + " won!",500,500);
+                        play = false;
+                        for (Rectangle borse : race){
+                            borse.x = 1000000;
+                        }
+                    }
+                    if (!play){
+                        g.setFont(new Font("Courier New", Font.BOLD, 100));
+                        g.drawString("borse" + stables.get(i).getNumber() + " won!",800,500);
                     }
                 /*else{
                     borse.setX(borse.getBorse().x);
@@ -268,6 +275,11 @@ class DrawPanel extends JPanel implements MouseListener {
         x++;
         y++;
         repaint();
+    }
+
+    public void clear(Graphics g){
+        g.clearRect(0,0,getWidth(),getHeight());
+        clear = false;
     }
 
     /*public void detectCollision(Rectangle rec){
@@ -353,6 +365,7 @@ class DrawPanel extends JPanel implements MouseListener {
             if (button.contains(clicked)) {
                 outScreen = false;
                 clear = true;
+                play = true;
                 if (!pause){
                     map.nextRound();
                 }

@@ -14,7 +14,7 @@ public class Map {
         walls.add(new Rectangle (0,900,1920,200));
         walls.add(new Rectangle (1820,0,200,1080));
         if (map == 1){
-            walls.add(new Rectangle(550,250, 100,100));
+            /*walls.add(new Rectangle(550,250, 100,100));
             walls.add(new Rectangle(500,400, 100,100));
             walls.add(new Rectangle(300,200, 100,100));
             walls.add(new Rectangle(1300,350, 100,100));
@@ -36,7 +36,7 @@ public class Map {
             walls.add(new Rectangle(1050,550,100,100));
             walls.add(new Rectangle(1650,700,100,100));
             walls.add(new Rectangle(1100,700,100,100));
-            walls.add(new Rectangle(1250,750,100,100));
+            walls.add(new Rectangle(1250,750,100,100));*/
         }
         return walls;
     }
