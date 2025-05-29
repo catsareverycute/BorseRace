@@ -15,13 +15,10 @@ class DrawPanel extends JPanel implements MouseListener {
     private static ArrayList<Rectangle> race = new ArrayList<>();
     private Map map;
     private BufferedImage image;
-    private Rectangle yes;
-    private boolean bounce = false;
     private boolean outScreen = true;
-    private boolean play = false;
     private boolean pause = false;
     private boolean clear = false;
-    private boolean s = false;
+
     private Rectangle carrot;
     Borse borse1 = new Borse(600,600,10,10,1,Color.RED);
     Borse borse2 = new Borse(100,100,10,10,2,Color.GREEN);
@@ -31,7 +28,6 @@ class DrawPanel extends JPanel implements MouseListener {
         button = new Rectangle(880, 700, 160, 40);
         this.addMouseListener(this);
         map = new Map();
-        yes = new Rectangle(600, 600, 10, 10);
         carrot = carrot1.getCarrot();
         stables.add(borse1);
         stables.add(borse2);
@@ -144,7 +140,7 @@ class DrawPanel extends JPanel implements MouseListener {
             clear = false;
         }
         test = map.createMap();
-        if (play) {
+        if (!outScreen) {
             g.setColor(Color.BLACK);
             g.drawRect(carrot.x,carrot.y,carrot.width,carrot.height);
             g.setColor(Color.ORANGE);
@@ -160,51 +156,35 @@ class DrawPanel extends JPanel implements MouseListener {
                 g.setColor(stables.get(i).getColor());
                 g.fillRect((int)race.get(i).getX(),(int)race.get(i).getY(),(int)race.get(i).getWidth(),(int)race.get(i).getHeight());
             }
-            /*for (Rectangle borse : race) {
-                g.setColor(Color.BLACK);
-                g.drawRect((int)borse.getX(), (int)borse.getY(), (int)borse.getWidth(), (int)borse.getHeight());
-                g.setColor(Color.RED);
-                g.fillRect((int)borse.getX(), (int)borse.getY(), (int)borse.getWidth(), (int)borse.getHeight());
-            }*/
-            /* g.drawRect(yes.x, yes.y, yes.width, yes.height);
-            g.setColor(Color.RED);
-            g.fillRect(yes.x, yes.y, yes.width, yes.height); */
             try{Thread.sleep(1);}catch(Exception e){}
-            /*if (!bounce){
-                yes.x = yes.x+2; // randomize
-                yes.y++;
-            }
-            else{
-                yes.x--;
-                yes.y--;
-            }
-            for (Rectangle rectangle: test) {
-                if(yes.intersects(rectangle)){ // check x or y for direction
-                    bounce = !bounce;
-                }
-            }
-            int speed = (int)(Math.random() * 6);
-            yes.x = yes.x+speed;
-            yes.y++; */
             for (int i = 0; i < race.size(); i++){
                 for (Rectangle rectangle : test){
                     if (race.get(i).intersects(rectangle)) {
                         stables.get(i).detectCollision(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
                     }
                     if (race.get(i).intersects(carrot)){
-                        play = false;
-                        for (Rectangle borse : race){
-                            borse.x = 1000000;
-                        }
-                    }
-                    if (!play){
+                        /*race.get(i).x = 1775;
+                        carrot.x = 1775;
+                        g.setColor(Color.blue);
                         g.setFont(new Font("Courier New", Font.BOLD, 100));
-                        g.drawString("borse" + stables.get(i).getNumber() + " won!",800,500);
+                        g.drawString("borse" + stables.get(i).getNumber() + " won!",650,500); */
+                        try{Thread.sleep(1000);}catch(Exception e){}
+                        map.nextRound();
+                        carrot.x = 1000;
+                        System.out.println(map.getMap());
+                        if (map.getMap() == 2) {
+                            System.out.println("work");
+                            test = map.createMap();
+                            borse1.setX(100);
+                            borse2.setX(100);
+                            for (Rectangle n : test) {
+                                g.setColor(Color.BLACK);
+                                g.drawRect(n.x, n.y, n.width, n.height);
+                                g.fillRect(n.x, n.y, n.width, n.height);
+                            }
+                        }
+                        try{Thread.sleep(100);}catch(Exception e){}
                     }
-                /*else{
-                    borse.setX(borse.getBorse().x);
-                    borse.setY(borse.getBorse().y);
-                }*/
                     if (stables.get(i).getMove().equals("NORTH")) {
                         stables.get(i).moveRectangleNorth();
                     }
@@ -218,30 +198,8 @@ class DrawPanel extends JPanel implements MouseListener {
                         stables.get(i).moveRectangleWest();
                     }
                 }
+
             }
-            /*for (Borse borse : stables){
-            for (Rectangle rec : race){
-            for (Rectangle rectangle: test) {
-                // NORTH GO SOUTH INTERSECT
-                if (rec.intersects(rectangle)) {
-                    borse.detectCollision(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
-                }
-                else{
-                    borse.setX(borse.getBorse().x);
-                    borse.setY(borse.getBorse().y);
-                }
-                if (borse.getMove().equals("NORTH")) {
-                    borse.moveRectangleNorth();
-                }
-                if (borse.getMove().equals("SOUTH")) {
-                    borse.moveRectangleSouth();
-                }
-                if (borse.getMove().equals("EAST")) {
-                    borse.moveRectangleEast();
-                }
-                if (borse.getMove().equals("WEST")) {
-                    borse.moveRectangleWest();
-                }*/
             }
     }
     protected void outScreen(Graphics g) {
@@ -282,81 +240,6 @@ class DrawPanel extends JPanel implements MouseListener {
         clear = false;
     }
 
-    /*public void detectCollision(Rectangle rec){
-        for (Rectangle rectangle: test) {
-            if(yes.intersects(rectangle)){ // check x or y for direction
-                if (yes.x <= 100){
-                    move = "EAST";
-                }
-                else if (yes.x >= 1820){
-                    move = "WEST";
-                }
-                else if (yes.y >= 900){
-                    move = "NORTH";
-                }
-                else if (yes.y <= 100){
-                    move = "SOUTH";
-                }
-                else if (move.equals("NORTH")){
-                    move = "SOUTH";
-                }
-                else if (move.equals("SOUTH")){
-                    move = "NORTH";
-                }
-                else if (move.equals("EAST")){
-                    move = "WEST";
-                }
-                else if (move.equals("WEST")){
-                    move = "EAST";
-                }
-                direction = (int)(Math.random()*2);
-            }
-        }
-    }
-    public void moveRectangleNorth(Rectangle rec){
-        int speed = (int)(Math.random() * 5) + 1;
-        if (direction == 0) {
-            yes.x = yes.x + speed;
-        }
-        else{
-            yes.x = yes.x - speed;
-        }
-        yes.y = yes.y - speed;
-    }
-
-    public void moveRectangleSouth(Rectangle rec){
-        int speed = (int)(Math.random() * 5) + 1;
-        if (direction == 0) {
-            yes.x = yes.x + speed;
-        }
-        else {
-            yes.x = yes.x - speed;
-        }
-        yes.y = yes.y + speed;
-    }
-
-    public void moveRectangleEast(Rectangle rec){
-        int speed = (int)(Math.random() * 5) + 1;
-        yes.x = yes.x+speed;
-        if (direction == 0) {
-            yes.y = yes.y + speed;
-        }
-        else {
-            yes.y = yes.y - speed;
-        }
-    }
-
-    public void moveRectangleWest(Rectangle rec){
-        int speed = (int)(Math.random() * 5) + 1;
-        yes.x = yes.x-speed;
-        if (direction == 0) {
-            yes.y = yes.y + speed;
-        }
-        else {
-            yes.y = yes.y - speed;
-        }
-    } */
-
     public void mousePressed(MouseEvent e) { // placeholder code
 
         Point clicked = e.getPoint();
@@ -365,7 +248,6 @@ class DrawPanel extends JPanel implements MouseListener {
             if (button.contains(clicked)) {
                 outScreen = false;
                 clear = true;
-                play = true;
                 if (!pause){
                     map.nextRound();
                 }
