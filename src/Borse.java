@@ -11,6 +11,7 @@ public class Borse extends Sprite{
     private int direction = (int)(Math.random()*2);
     private int speed = (int)(Math.random()*1) + 1;
     private Color color;
+    private int points;
 
     public Borse(int x, int y, int w, int h, int number, Color color) {
         super(x,y,w,h);
@@ -26,6 +27,7 @@ public class Borse extends Sprite{
     public String getMove(){return move;}
     public Color getColor(){return color;}
     public int getNumber(){return number;}
+    public void addPoints(){points++;}
 // X Y TP THERE WHEN INTERSECT AND TRY AGAIN
     public void detectCollision(int x, int y, int width, int height){
                 if (borse.x <= 100){
@@ -60,41 +62,27 @@ public class Borse extends Sprite{
                     move = "EAST";
                     borse.x = x+1;
                 }
-                /*else if (move.equals("NORTH")){
-                    move = "SOUTH";
-                }
-                else if (move.equals("SOUTH")){
-                    move = "NORTH";
-                }
-                else if (move.equals("EAST")){
-                    move = "WEST";
-                }
-                else if (move.equals("WEST")){
-                    move = "EAST";
-                }*/
                 direction = (int)(Math.random()*2);
                 speed = (int)(Math.random()*1) + 1;
-                //borse.x = getX();
-                // borse.y = getY();
             }
     public void moveRectangleNorth(){
-        if (direction == 0) {
-            borse.x = borse.x + speed;
-        }
-        else{
-            borse.x = borse.x - speed;
-        }
         borse.y = borse.y - speed;
-    }
-
-    public void moveRectangleSouth(){
         if (direction == 0) {
             borse.x = borse.x + speed;
         }
         else {
             borse.x = borse.x - speed;
         }
+    }
+
+    public void moveRectangleSouth(){
         borse.y = borse.y + speed;
+        if (direction == 0) {
+            borse.x = borse.x + speed;
+        }
+        else {
+            borse.x = borse.x - speed;
+        }
     }
 
     public void moveRectangleEast(){
@@ -103,7 +91,7 @@ public class Borse extends Sprite{
             borse.y = borse.y + speed;
         }
         else {
-            borse.y = borse.y - speed;
+            borse.y = borse.y + speed;
         }
     }
 
@@ -113,7 +101,7 @@ public class Borse extends Sprite{
             borse.y = borse.y + speed;
         }
         else {
-            borse.y = borse.y - speed;
+            borse.y = borse.y + speed;
         }
     }
 }

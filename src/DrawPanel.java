@@ -150,13 +150,16 @@ class DrawPanel extends JPanel implements MouseListener {
                 g.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
                 g.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
             }
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Courier New", Font.BOLD, 50));
+            g.drawString("BORSE",700,50);
             for (int i = 0; i < race.size(); i++){
                 g.setColor(Color.BLACK);
                 g.drawRect((int)race.get(i).getX(),(int)race.get(i).getY(),(int)race.get(i).getWidth(),(int)race.get(i).getHeight());
                 g.setColor(stables.get(i).getColor());
                 g.fillRect((int)race.get(i).getX(),(int)race.get(i).getY(),(int)race.get(i).getWidth(),(int)race.get(i).getHeight());
             }
-            try{Thread.sleep(1);}catch(Exception e){}
+            try{Thread.sleep(10);}catch(Exception e){}
             for (int i = 0; i < race.size(); i++){
                 for (Rectangle rectangle : test){
                     if (race.get(i).intersects(rectangle)) {
@@ -171,17 +174,17 @@ class DrawPanel extends JPanel implements MouseListener {
                         try{Thread.sleep(1000);}catch(Exception e){}
                         map.nextRound();
                         carrot.x = 1000;
+                        for (Rectangle borse : race){
+                            borse.x = 100;
+                            borse.y = 100;
+                        }
                         System.out.println(map.getMap());
-                        if (map.getMap() == 2) {
                             System.out.println("work");
                             test = map.createMap();
-                            borse1.setX(100);
-                            borse2.setX(100);
                             for (Rectangle n : test) {
                                 g.setColor(Color.BLACK);
                                 g.drawRect(n.x, n.y, n.width, n.height);
                                 g.fillRect(n.x, n.y, n.width, n.height);
-                            }
                         }
                         try{Thread.sleep(100);}catch(Exception e){}
                     }
