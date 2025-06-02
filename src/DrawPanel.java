@@ -152,14 +152,16 @@ class DrawPanel extends JPanel implements MouseListener {
             }
             g.setColor(Color.WHITE);
             g.setFont(new Font("Courier New", Font.BOLD, 50));
-            g.drawString("BORSE",700,50);
+            g.drawString("BORSE 1 POINTS:" + borse1.getPoints(),100,50);
+            g.drawString("BORSE 2 POINTS:" + borse2.getPoints(),700,50);
+            g.drawString(map.mapName(),100,950);
             for (int i = 0; i < race.size(); i++){
                 g.setColor(Color.BLACK);
                 g.drawRect((int)race.get(i).getX(),(int)race.get(i).getY(),(int)race.get(i).getWidth(),(int)race.get(i).getHeight());
                 g.setColor(stables.get(i).getColor());
                 g.fillRect((int)race.get(i).getX(),(int)race.get(i).getY(),(int)race.get(i).getWidth(),(int)race.get(i).getHeight());
             }
-            try{Thread.sleep(10);}catch(Exception e){}
+            try{Thread.sleep(100);}catch(Exception e){}
             for (int i = 0; i < race.size(); i++){
                 for (Rectangle rectangle : test){
                     if (race.get(i).intersects(rectangle)) {
@@ -172,11 +174,17 @@ class DrawPanel extends JPanel implements MouseListener {
                         g.setFont(new Font("Courier New", Font.BOLD, 100));
                         g.drawString("borse" + stables.get(i).getNumber() + " won!",650,500); */
                         try{Thread.sleep(1000);}catch(Exception e){}
+                        stables.get(i).addPoints();
                         map.nextRound();
-                        carrot.x = 1000;
+                        carrot.x = 1500;
+                        carrot.y = 400;
                         for (Rectangle borse : race){
                             borse.x = 100;
                             borse.y = 100;
+                            if (map.getMap() == 2){
+                                borse.x = 200;
+                                borse.y = 500;
+                            }
                         }
                         System.out.println(map.getMap());
                             System.out.println("work");
@@ -251,9 +259,7 @@ class DrawPanel extends JPanel implements MouseListener {
             if (button.contains(clicked)) {
                 outScreen = false;
                 clear = true;
-                if (!pause){
-                    map.nextRound();
-                }
+                map.nextRound();
             }
         }
     }

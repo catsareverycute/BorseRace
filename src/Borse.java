@@ -28,6 +28,7 @@ public class Borse extends Sprite{
     public Color getColor(){return color;}
     public int getNumber(){return number;}
     public void addPoints(){points++;}
+    public int getPoints(){return points;}
 // X Y TP THERE WHEN INTERSECT AND TRY AGAIN
     public void detectCollision(int x, int y, int width, int height){
                 if (borse.x <= 100){
@@ -46,21 +47,21 @@ public class Borse extends Sprite{
                     move = "SOUTH";
                     borse.y = 101;
                 }
-                else if (borse.y >= y && borse.x >= x && borse.x <= x + width){
+                else if (borse.y <= y+1 && borse.x >= x-1 && borse.x <= x + width+1){
                     move = "NORTH";
                     borse.y = y-1;
                 }
-                else if (borse.y >= y+height && borse.x >= x && borse.x <= x + width){
+                else if (borse.y >= y+height && borse.x >= x+1 && borse.x <= x + width+1){
                     move = "SOUTH";
-                    borse.y = y+1;
+                    borse.y = y+height+1;
                 }
-                else if (borse.y <= y+height && borse.y >= y && borse.x <= x){
+                else if (borse.y <= y+height+1 && borse.y >= y+1 && borse.x <= x+1){
                     move = "WEST";
                     borse.x = x-1;
                 }
                 else if (borse.y <= y+height && borse.y >= y && borse.x <= x + width){
                     move = "EAST";
-                    borse.x = x+1;
+                    borse.x = x+width+1;
                 }
                 direction = (int)(Math.random()*2);
                 speed = (int)(Math.random()*1) + 1;
@@ -91,7 +92,7 @@ public class Borse extends Sprite{
             borse.y = borse.y + speed;
         }
         else {
-            borse.y = borse.y + speed;
+            borse.y = borse.y - speed;
         }
     }
 
@@ -101,7 +102,7 @@ public class Borse extends Sprite{
             borse.y = borse.y + speed;
         }
         else {
-            borse.y = borse.y + speed;
+            borse.y = borse.y - speed;
         }
     }
 }

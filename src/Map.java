@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Map {
     private static int map;
     private Rectangle test;
+    private String mapName;
     public Map(){
     }
 
@@ -13,7 +14,7 @@ public class Map {
         walls.add(new Rectangle(0,0,100,1080));
         walls.add(new Rectangle (0,900,1920,200));
         walls.add(new Rectangle (1820,0,200,1080));
-        if (map == 2){
+        if (map == 1){
             walls.add(new Rectangle(550,250, 100,100));
             walls.add(new Rectangle(500,400, 100,100));
             walls.add(new Rectangle(300,200, 100,100));
@@ -38,9 +39,19 @@ public class Map {
             walls.add(new Rectangle(1100,700,100,100));
             walls.add(new Rectangle(1250,750,100,100));
         }
+        if (map == 2){
+            walls.add(new Rectangle(200,700,1000,200));
+            walls.add(new Rectangle(200,200,1000,200));
+        }
         return walls;
     }
 
+    public String mapName(){
+        if (map == 1) {
+            return "\"Polka Dots\"";
+        }
+        return "\"Space\"";
+    }
     public Rectangle outScreen(){
         return (new Rectangle(0,0,1920,1080));
     }
