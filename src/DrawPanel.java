@@ -22,7 +22,8 @@ class DrawPanel extends JPanel implements MouseListener {
     private Rectangle carrot;
     Borse borse1 = new Borse(600,600,10,10,1,Color.RED);
     Borse borse2 = new Borse(100,100,10,10,2,Color.GREEN);
-    Carrot carrot1 = new Carrot(1775,850,50,50);
+    //Carrot carrot1 = new Carrot(1775,850,50,50);
+    Carrot carrot1 = new Carrot(200,200,50,50);
 
     public DrawPanel() {
         button = new Rectangle(880, 700, 160, 40);
@@ -161,7 +162,7 @@ class DrawPanel extends JPanel implements MouseListener {
                 g.setColor(stables.get(i).getColor());
                 g.fillRect((int)race.get(i).getX(),(int)race.get(i).getY(),(int)race.get(i).getWidth(),(int)race.get(i).getHeight());
             }
-            try{Thread.sleep(100);}catch(Exception e){}
+            try{Thread.sleep(10);}catch(Exception e){}
             for (int i = 0; i < race.size(); i++){
                 for (Rectangle rectangle : test){
                     if (race.get(i).intersects(rectangle)) {
@@ -182,8 +183,8 @@ class DrawPanel extends JPanel implements MouseListener {
                             borse.x = 100;
                             borse.y = 100;
                             if (map.getMap() == 2){
-                                borse.x = 200;
-                                borse.y = 500;
+                                borse.x = 500;
+                                borse.y = 600;
                             }
                         }
                         System.out.println(map.getMap());

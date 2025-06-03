@@ -40,8 +40,8 @@ public class Map {
             walls.add(new Rectangle(1250,750,100,100));
         }
         if (map == 2){
-            walls.add(new Rectangle(200,700,1000,200));
-            walls.add(new Rectangle(200,200,1000,200));
+            walls.add(new Rectangle(200,200,1400,200));
+            walls.add(new Rectangle(200,600,1400,200));
         }
         return walls;
     }
