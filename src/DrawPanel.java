@@ -177,12 +177,16 @@ class DrawPanel extends JPanel implements MouseListener {
                         try{Thread.sleep(1000);}catch(Exception e){}
                         stables.get(i).addPoints();
                         map.nextRound();
-                        carrot.x = 1500;
-                        carrot.y = 400;
+                        carrot.x = 500;
+                        carrot.y = 425;
                         for (Rectangle borse : race){
                             borse.x = 100;
                             borse.y = 100;
                             if (map.getMap() == 2){
+                                borse.x = 500;
+                                borse.y = 600;
+                            }
+                            if (map.getMap() == 3){
                                 borse.x = 500;
                                 borse.y = 600;
                             }

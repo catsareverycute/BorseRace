@@ -40,8 +40,16 @@ public class Map {
             walls.add(new Rectangle(1250,750,100,100));
         }
         if (map == 2){
-            walls.add(new Rectangle(200,200,1400,200));
-            walls.add(new Rectangle(200,600,1400,200));
+            walls.add(new Rectangle(200,200,1525,200));
+            walls.add(new Rectangle(200,600,1525,200));
+        }
+        if (map == 3){
+            walls.add(new Rectangle(100,100,1800,325));
+            walls.add(new Rectangle(100,475,1800,500));
+        }
+        if (map == 4){
+            walls.add(new Rectangle(900,125,100,675));
+            walls.add(new Rectangle(400,450,1175,100));
         }
         return walls;
     }
@@ -49,6 +57,12 @@ public class Map {
     public String mapName(){
         if (map == 1) {
             return "\"Polka Dots\"";
+        }
+        if (map == 2) {
+            return "\"Equal\"";
+        }
+        if (map == 3) {
+            return "\"Minus\"";
         }
         return "\"Space\"";
     }

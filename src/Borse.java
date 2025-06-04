@@ -47,11 +47,11 @@ public class Borse extends Sprite{
                     move = "SOUTH";
                     borse.y = 101;
                 }
-                 else if (borse.y <= y  && borse.x >= x && borse.x <= x + width){
-                    move = "NORTH";
+                 else if (borse.y >= y && borse.y <= y+(height/2) && borse.x >= x && borse.x <= x + width){
                     borse.y = borse.y-1;
+                    move = "NORTH";
                 }
-                 else if (borse.y >= y+height && borse.x >= x+1 && borse.x <= x + width){
+                 else if (borse.y <= y+height && borse.y >= y + (height/2) && borse.x >= x+1 && borse.x <= x + width){
                     borse.y = borse.y+1;
                     move = "SOUTH";
                 }
