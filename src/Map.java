@@ -48,8 +48,8 @@ public class Map {
             walls.add(new Rectangle(100,475,1800,500));
         }
         if (map == 4){
-            walls.add(new Rectangle(900,125,100,675));
-            walls.add(new Rectangle(400,450,1175,100));
+            walls.add(new Rectangle(900,125,100,750));
+            walls.add(new Rectangle(370,425,1175,100));
         }
         return walls;
     }
