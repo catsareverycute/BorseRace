@@ -51,6 +51,12 @@ public class Map {
             walls.add(new Rectangle(900,125,100,750));
             walls.add(new Rectangle(370,425,1175,100));
         }
+        if (map == 5){
+            walls.add(new Rectangle(100,300,200,25));
+            walls.add(new Rectangle(300,100,25,200));
+            walls.add(new Rectangle(1620,100,100,200));
+            walls.add(new Rectangle(1620,600,100,200));
+        }
         return walls;
     }
 
