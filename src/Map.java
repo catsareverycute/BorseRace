@@ -52,10 +52,12 @@ public class Map {
             walls.add(new Rectangle(370,425,1175,100));
         }
         if (map == 5){
-            walls.add(new Rectangle(100,300,200,25));
-            walls.add(new Rectangle(300,100,25,200));
-            walls.add(new Rectangle(1620,100,100,200));
-            walls.add(new Rectangle(1620,600,100,200));
+            walls.add(new Rectangle(100,300,190,25));
+            walls.add(new Rectangle(300,100,25,190));
+            walls.add(new Rectangle(1620,100,25,190));
+            walls.add(new Rectangle(1645,300,200,25));
+            walls.add(new Rectangle(1620,710,25,190));
+            walls.add(new Rectangle(1645,625,200,25));
         }
         return walls;
     }
@@ -69,6 +71,12 @@ public class Map {
         }
         if (map == 3) {
             return "\"Minus\"";
+        }
+        if (map == 4) {
+            return "\"Plus\"";
+        }
+        if (map == 5) {
+            return "\"Four Corners\"";
         }
         return "\"Space\"";
     }

@@ -22,8 +22,8 @@ class DrawPanel extends JPanel implements MouseListener {
     private Rectangle carrot;
     Borse borse1 = new Borse(600,600,10,10,1,Color.RED);
     Borse borse2 = new Borse(100,100,10,10,2,Color.GREEN);
-    Carrot carrot1 = new Carrot(1775,850,50,50);
-    // Carrot carrot1 = new Carrot(200,200,50,50);
+    //Carrot carrot1 = new Carrot(1775,850,50,50);
+    Carrot carrot1 = new Carrot(200,200,50,50);
 
     public DrawPanel() {
         button = new Rectangle(880, 700, 160, 40);
@@ -39,6 +39,83 @@ class DrawPanel extends JPanel implements MouseListener {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        int x = 300;
+        int y = 300;
+        /* Borse borse = new Borse(x,y,10,10,0);
+        image = borse.getImage(borse.readImage(borse.getImageFile()));
+        g.drawImage(image,x,y,this);
+        for (Rectangle rec : test) {
+            if(borse.getBorse().intersects(rec)){
+                bounce = !bounce;
+            }
+        }
+
+        for (int i = 0; i<100;i++){
+            x++;
+            try {
+                Thread.sleep(1);
+            }
+            catch (Exception e) {
+            }
+            repaint();
+        }
+
+        if (!bounce) {
+            if(x==100){
+                x = x + 2;
+            }
+            x++;
+            y++;
+        }
+        else{
+            if(x==100){
+                x = x + 2;
+            }
+            else {
+                x = x -2;
+            }
+            y--;
+        }
+        test = map.createMap();
+        Rectangle ttttt = map.outScreen();
+        g.setColor(Color.BLACK);
+        g.drawRect(ttttt.x,ttttt.y,ttttt.width,ttttt.height);
+        g.fillRect(ttttt.x,ttttt.y,ttttt.width,ttttt.height);
+        for (Rectangle rec : test) {
+            g.drawRect(rec.x,rec.y,rec.width,rec.height);
+            g.fillRect(rec.x,rec.y,rec.width,rec.height);
+        }
+        g.drawRect(yes.x,yes.y,yes.width,yes.height);
+        g.setColor(Color.RED);
+        g.fillRect(yes.x,yes.y,yes.width,yes.height);
+
+        for (Rectangle rec : test) {
+            if(yes.intersects(rec)){
+                bounce = !bounce;
+            }
+        }
+        if (!bounce) {
+            if(yes.x==100){
+                yes.x = yes.x + 2;
+            }
+            yes.x++;
+            yes.y++;
+        }
+        else{
+            if(yes.x==100){
+                yes.x = yes.x + 2;
+            }
+            else {
+                yes.x = yes.x -2;
+            }
+            yes.y--;
+        }
+        try {
+            Thread.sleep(5);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } */
+
 
         /* for (int i = 0; i < hand.size(); i++) {
             if (i % 3 == 0 && i != 0) {
@@ -59,16 +136,16 @@ class DrawPanel extends JPanel implements MouseListener {
         }
              */
         outScreen(g);
-        if (clear) {
-            g.clearRect(0, 0, getWidth(), getHeight());
+        if (clear){
+            g.clearRect(0,0,getWidth(),getHeight());
             clear = false;
         }
         test = map.createMap();
         if (!outScreen) {
             g.setColor(Color.BLACK);
-            g.drawRect(carrot.x, carrot.y, carrot.width, carrot.height);
+            g.drawRect(carrot.x,carrot.y,carrot.width,carrot.height);
             g.setColor(Color.ORANGE);
-            g.fillRect(carrot.x, carrot.y, carrot.width, carrot.height);
+            g.fillRect(carrot.x,carrot.y,carrot.width,carrot.height);
             for (Rectangle rectangle : test) {
                 g.setColor(Color.BLACK);
                 g.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
@@ -76,58 +153,26 @@ class DrawPanel extends JPanel implements MouseListener {
             }
             g.setColor(Color.WHITE);
             g.setFont(new Font("Courier New", Font.BOLD, 50));
-            g.drawString("BORSE 1 POINTS:" + borse1.getPoints(), 100, 50);
-            g.drawString("BORSE 2 POINTS:" + borse2.getPoints(), 700, 50);
-            g.drawString(map.mapName(), 100, 950);
-            for (int i = 0; i < race.size(); i++) {
+            g.drawString("BORSE 1 POINTS:" + borse1.getPoints(),100,50);
+            g.drawString("BORSE 2 POINTS:" + borse2.getPoints(),700,50);
+            g.drawString(map.mapName(),100,950);
+            for (int i = 0; i < race.size(); i++){
                 g.setColor(Color.BLACK);
-                g.drawRect((int) race.get(i).getX(), (int) race.get(i).getY(), (int) race.get(i).getWidth(), (int) race.get(i).getHeight());
+                g.drawRect((int)race.get(i).getX(),(int)race.get(i).getY(),(int)race.get(i).getWidth(),(int)race.get(i).getHeight());
                 g.setColor(stables.get(i).getColor());
-                g.fillRect((int) race.get(i).getX(), (int) race.get(i).getY(), (int) race.get(i).getWidth(), (int) race.get(i).getHeight());
+                g.fillRect((int)race.get(i).getX(),(int)race.get(i).getY(),(int)race.get(i).getWidth(),(int)race.get(i).getHeight());
             }
-            try {
-                Thread.sleep(10);
-            } catch (Exception e) {
-            }
-            for (int i = 0; i < race.size(); i++) {
-                for (Rectangle rectangle : test) {
+            try{Thread.sleep(10);}catch(Exception e){}
+            for (int i = 0; i < race.size(); i++){
+                for (Rectangle rectangle : test){
                     if (race.get(i).intersects(rectangle)) {
-                        stables.get(i).detectCollision(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+                        stables.get(i).detectCollision(rectangle.x,rectangle.y,rectangle.width,rectangle.height);
                     }
-                    if (race.get(i).intersects(carrot)) {
+                    if (race.get(i).intersects(carrot)){
                         nextMap(g, i);
-                        /*race.get(i).x = 1775;
-                        carrot.x = 1775;
-                        g.setColor(Color.blue);
-                        g.setFont(new Font("Courier New", Font.BOLD, 100));
-                        g.drawString("borse" + stables.get(i).getNumber() + " won!",650,500); */
-                        /* try{Thread.sleep(1000);}catch(Exception e){}
-                        stables.get(i).addPoints();
-                        map.nextRound();
-                        carrot.x = 500;
-                        carrot.y = 425;
-                        for (Rectangle borse : race){
-                            borse.x = 100;
-                            borse.y = 100;
-                            if (map.getMap() == 2){
-                                borse.x = 500;
-                                borse.y = 600;
-                            }
-                            if (map.getMap() == 3){
-                                borse.x = 500;
-                                borse.y = 600;
-                            }
-                        }
-                        System.out.println(map.getMap());
-                            test = map.createMap();
-                            for (Rectangle n : test) {
-                                g.setColor(Color.BLACK);
-                                g.drawRect(n.x, n.y, n.width, n.height);
-                                g.fillRect(n.x, n.y, n.width, n.height);
-                        }
-                        try{Thread.sleep(100);}catch(Exception e){} */
                     }
-                    if (stables.get(i).getMove().equals("NORTH")) {
+                    stables.get(i).move();
+                    /* if (stables.get(i).getMove().equals("NORTH")) {
                         stables.get(i).moveRectangleNorth();
                     }
                     if (stables.get(i).getMove().equals("SOUTH")) {
@@ -138,11 +183,11 @@ class DrawPanel extends JPanel implements MouseListener {
                     }
                     if (stables.get(i).getMove().equals("WEST")) {
                         stables.get(i).moveRectangleWest();
-                    }
+                    } */
                 }
 
             }
-        }
+            }
     }
     protected void outScreen(Graphics g) {
         Rectangle full = map.outScreen();
@@ -169,12 +214,16 @@ class DrawPanel extends JPanel implements MouseListener {
             button.x = 100000;
         }
     }
-
     protected void nextMap(Graphics g,int i){
         try{Thread.sleep(1000);}catch(Exception e){}
         stables.get(i).addPoints();
         map.nextRound();
-        if (map.getMap() == 1){}
+        carrot1.carrotMap(map.getMap());
+        for (Borse borse : stables) {
+        borse.borseMap(map.getMap());
+        }
+
+        /*if (map.getMap() == 1){}
         carrot.x = 950;
         carrot.y = 850;
         if (map.getMap() == 3){
@@ -197,7 +246,7 @@ class DrawPanel extends JPanel implements MouseListener {
                 borse.x = 450;
                 borse.y = 450;
             }
-        }
+        } */
         test = map.createMap();
         for (Rectangle n : test) {
             g.setColor(Color.BLACK);

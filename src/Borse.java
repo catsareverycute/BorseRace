@@ -9,7 +9,7 @@ public class Borse extends Sprite{
     private String imageFile = "images/borse_"+number+".png";
     private String move = "NORTH";
     private int direction = (int)(Math.random()*2);
-    private int speed = (int)(Math.random()*1) + 1;
+    private int speed = (int)(Math.random()*2) + 1;
     private Color color;
     private int points;
 
@@ -29,6 +29,18 @@ public class Borse extends Sprite{
     public int getNumber(){return number;}
     public void addPoints(){points++;}
     public int getPoints(){return points;}
+    public void borseMap(int map){
+        borse.x = 100;
+        borse.y = 100;
+        if (map == 2){
+            borse.x = 500;
+            borse.y = 600;
+        }
+        if (map == 3){
+            borse.x = 450;
+            borse.y = 450;
+        }
+    }
 // X Y TP THERE WHEN INTERSECT AND TRY AGAIN
     public void detectCollision(int x, int y, int width, int height){
                 if (borse.x <= 100){
@@ -64,9 +76,24 @@ public class Borse extends Sprite{
                     move = "EAST";
                 }
                 direction = (int)(Math.random()*2);
-                speed = (int)(Math.random()*1) + 1;
+                speed = (int)(Math.random()*2) + 1;
         System.out.println(move);
             }
+
+        public void move(){
+            if (move.equals("NORTH")) {
+                moveRectangleNorth();
+            }
+            if (move.equals("SOUTH")) {
+                moveRectangleSouth();
+            }
+            if (move.equals("EAST")) {
+                moveRectangleEast();
+            }
+            if (move.equals("WEST")) {
+                moveRectangleWest();
+            }
+        }
     public void moveRectangleNorth(){
         borse.y = borse.y - speed;
         if (direction == 0) {
