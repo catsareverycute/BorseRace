@@ -46,7 +46,7 @@ public class Map {
             walls.add(new Rectangle(100,475,1800,500));
         }
         if (map == 4){
-            walls.add(new Rectangle(900,125,100,750));
+            walls.add(new Rectangle(900,150,100,725));
             walls.add(new Rectangle(370,425,1175,100));
         }
         if (map == 5){

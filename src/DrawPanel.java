@@ -24,7 +24,7 @@ class DrawPanel extends JPanel implements MouseListener {
     Borse borse2 = new Borse(100,100,10,10,2,Color.GREEN);
     Borse borse3 = new Borse(100,100,10,10,3,Color.BLUE);
     //Carrot carrot1 = new Carrot(1775,850,50,50);
-    Carrot carrot1 = new Carrot(1770,900,50,50);
+    Carrot carrot1 = new Carrot(1775,850,50,50);
 
     public DrawPanel() {
         button = new Rectangle(880, 700, 160, 40);
