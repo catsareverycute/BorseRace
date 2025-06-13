@@ -12,6 +12,9 @@ public class Borse extends Sprite{
     private int speed = (int)(Math.random()*2) + 1;
     private Color color;
     private int points;
+    private static Borse chosenBorse;
+    private static int correct;
+    private static int incorrect;
 
     public Borse(int x, int y, int w, int h, int number, Color color) {
         super(x,y,w,h);
@@ -29,6 +32,7 @@ public class Borse extends Sprite{
     public int getNumber(){return number;}
     public void addPoints(){points++;}
     public int getPoints(){return points;}
+    public void setChosen(Borse borse){chosenBorse = borse;}
     public void borseMap(int map){
         borse.x = 100;
         borse.y = 100;
@@ -41,7 +45,23 @@ public class Borse extends Sprite{
             borse.y = 450;
         }
     }
-// X Y TP THERE WHEN INTERSECT AND TRY AGAIN
+    public int winner(ArrayList<Borse> stables){
+        int max = 0;
+        Borse winner = new Borse(0,0,0,0,0,Color.RED);
+        for (Borse borse : stables){
+            if (max < borse.getPoints()){
+                max = borse.getPoints();
+                winner = borse;
+            }
+        }
+        if (winner == chosenBorse){
+            correct++;
+        }
+        else{
+            incorrect++;
+        }
+        return winner.getPoints();
+    }
     public void detectCollision(int x, int y, int width, int height){
                 if (borse.x <= 100){
                     move = "EAST";
@@ -77,7 +97,6 @@ public class Borse extends Sprite{
                 }
                 direction = (int)(Math.random()*2);
                 speed = (int)(Math.random()*2) + 1;
-        System.out.println(move);
             }
 
         public void move(){

@@ -18,8 +18,7 @@ public class Sprite {
         this.height = height;
         sprite = new Rectangle(x,y,width,height);
     }
-    // a BufferedImage object is an object that represents an image file to be
-    // drawn on the screen
+    
     public BufferedImage readImage(String imageFile) {
         try {
             BufferedImage image;
@@ -27,7 +26,6 @@ public class Sprite {
             return image;
         }
         catch (IOException e) {
-            System.out.println("WORK");
             return null;
         }
     }

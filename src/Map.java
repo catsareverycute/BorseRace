@@ -3,8 +3,6 @@ import java.util.ArrayList;
 
 public class Map {
     private static int map;
-    private Rectangle test;
-    private String mapName;
     public Map(){
     }
 
@@ -54,10 +52,15 @@ public class Map {
         if (map == 5){
             walls.add(new Rectangle(100,300,190,25));
             walls.add(new Rectangle(300,100,25,190));
-            walls.add(new Rectangle(1620,100,25,190));
+            walls.add(new Rectangle(1615,100,25,190));
             walls.add(new Rectangle(1645,300,200,25));
-            walls.add(new Rectangle(1620,710,25,190));
-            walls.add(new Rectangle(1645,625,200,25));
+            walls.add(new Rectangle(1615,710,25,190));
+            walls.add(new Rectangle(1645,675,300,25));
+            walls.add(new Rectangle(100,625,190,25));
+            walls.add(new Rectangle(300,675,25,300));
+        }
+        if (map == 6){
+            outScreen();
         }
         return walls;
     }

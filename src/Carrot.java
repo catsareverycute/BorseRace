@@ -7,16 +7,22 @@ public class Carrot extends Sprite{
     }
     public Rectangle getCarrot(){return carrot;}
     public void carrotMap(int map){
-        if (map == 1){}
-        carrot.x = 950;
-        carrot.y = 850;
+        if (map == 1){
+            carrot.x = 950;
+            carrot.y = 850;
+        }
         if (map == 3){
             carrot.x = 1775;
             carrot.y = 425;
         }
         if (map == 4){
-            carrot.x = 300;
+            carrot.x = 1000;
             carrot.y = 375;
+        }
+        if (map == 5){
+            //carrot.x = 1770;
+            carrot.x = 500;
+            carrot.y = 100;
         }
     }
 }
