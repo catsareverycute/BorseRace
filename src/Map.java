@@ -46,8 +46,8 @@ public class Map {
             walls.add(new Rectangle(100,475,1800,500));
         }
         if (map == 4){
-            walls.add(new Rectangle(900,150,100,725));
-            walls.add(new Rectangle(370,425,1175,100));
+            walls.add(new Rectangle(900,200,100,675));
+            walls.add(new Rectangle(400,425,1145,100));
         }
         if (map == 5){
             walls.add(new Rectangle(100,300,190,25));
@@ -94,4 +94,5 @@ public class Map {
     }
 
     public int getMap() {return map;}
+    public void setMap(int mapNum) { map = mapNum;}
 }

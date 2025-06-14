@@ -18,13 +18,13 @@ class DrawPanel extends JPanel implements MouseListener {
     private boolean outScreen = true;
     private boolean gamble = false;
     private boolean clear = false;
+    private boolean end = false;
 
     private Rectangle carrot;
     Borse borse1 = new Borse(100,100,10,10,1,Color.RED);
     Borse borse2 = new Borse(100,100,10,10,2,Color.GREEN);
     Borse borse3 = new Borse(100,100,10,10,3,Color.BLUE);
-    //Carrot carrot1 = new Carrot(1775,850,50,50);
-    Carrot carrot1 = new Carrot(1775,850,50,50);
+    Carrot carrot1 = new Carrot(1775,800,100,100);
 
     public DrawPanel() {
         button = new Rectangle(880, 700, 160, 40);
@@ -60,11 +60,14 @@ class DrawPanel extends JPanel implements MouseListener {
                 g.drawRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
                 g.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
             }
-            g.setColor(Color.WHITE);
+            g.setColor(borse1.getColor());
             g.setFont(new Font("Courier New", Font.BOLD, 50));
             g.drawString("BORSE 1 POINTS:" + borse1.getPoints(),100,50);
+            g.setColor(borse2.getColor());
             g.drawString("BORSE 2 POINTS:" + borse2.getPoints(),700,50);
-            g.drawString("BORSE 3 POINTS:" + borse3.getPoints(),400,100);
+            g.setColor(borse3.getColor());
+            g.drawString("BORSE 3 POINTS:" + borse3.getPoints(),1300,50);
+            g.setColor(Color.WHITE);
             g.drawString(map.mapName(),100,950);
             for (int i = 0; i < race.size(); i++){
                 g.setColor(Color.BLACK);
@@ -86,15 +89,26 @@ class DrawPanel extends JPanel implements MouseListener {
 
             }
             if (map.getMap() == 6){
+                clear = true;
+                outScreen = true;
                 int win = borse1.winner(stables);
                 g.setFont(new Font("Brush Script MT", Font.BOLD, 100));
-                g.drawString("Borse " + win + " won!", 500, 200);
+                g.drawString("Borse " + win + " won!", 800, 200);
+                try{Thread.sleep(1000);}catch(Exception e){}
             }
             }
     }
     protected void outScreen(Graphics g) {
         Rectangle full = map.outScreen();
         if (outScreen) {
+            if (end){
+                int win = borse1.winner(stables);
+                g.setFont(new Font("Brush Script MT", Font.BOLD, 100));
+                g.drawString("Borse " + win + " won!", 800, 200);
+                try{Thread.sleep(1000);}catch(Exception e){}
+                gamble = true;
+                end = false;
+            }
             if (!gamble){
             button.x = 880; //bandage fix
             g.setColor(Color.BLACK);
@@ -122,6 +136,8 @@ class DrawPanel extends JPanel implements MouseListener {
                 g.setFont(new Font("Brush Script MT", Font.BOLD, 100));
             g.drawString("CHOOSE THE WINNER", 500, 200);
                 g.setFont(new Font("Courier New", Font.BOLD, 30));
+                g.drawString("CORRECT: " + borse1.getCorrect(), 500, 450);
+                g.drawString("INCORRECT: " + borse1.getIncorrect(), 1000, 450);
                 g.drawString("BORSE 2", 1020, 735);
                 g.drawString("BORSE 1", 520, 735);
                 g.drawString("BORSE 3", 1520, 735);
@@ -129,8 +145,10 @@ class DrawPanel extends JPanel implements MouseListener {
                 g.drawRect((int) button2.getX(), (int) button2.getY(), (int) button2.getWidth(), (int) button2.getHeight());
                 g.drawRect((int) button3.getX(), (int) button3.getY(), (int) button3.getWidth(), (int) button3.getHeight());
             }
+            
         }
         else{
+            carrot1.carrotMap(map.getMap());
             button.x = 100000;
             button1.x = 100000;
             button2.x = 100000;
@@ -159,7 +177,7 @@ class DrawPanel extends JPanel implements MouseListener {
         clear = false;
     }
 
-    public void mousePressed(MouseEvent e) { // placeholder code
+    public void mousePressed(MouseEvent e) { 
 
         Point clicked = e.getPoint();
 
@@ -181,6 +199,7 @@ class DrawPanel extends JPanel implements MouseListener {
                     borse1.setChosen(borse3);
                 }
                 clear = true;
+                map.setMap(0);
             }
         }
     }

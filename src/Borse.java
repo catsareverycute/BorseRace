@@ -27,11 +27,14 @@ public class Borse extends Sprite{
         return imageFile;
     }
     public Rectangle getBorse(){ return borse;}
+    public int getCorrect(){ return correct;}
+    public int getIncorrect(){ return incorrect;}
     public String getMove(){return move;}
     public Color getColor(){return color;}
     public int getNumber(){return number;}
     public void addPoints(){points++;}
     public int getPoints(){return points;}
+    public void resetPoints(){points = 0;}
     public void setChosen(Borse borse){chosenBorse = borse;}
     public void borseMap(int map){
         borse.x = 100;
@@ -60,7 +63,10 @@ public class Borse extends Sprite{
         else{
             incorrect++;
         }
-        return winner.getPoints();
+        for (Borse borse: stables){
+            borse.resetPoints();
+        }
+        return winner.getNumber();
     }
     public void detectCollision(int x, int y, int width, int height){
                 if (borse.x <= 100){
